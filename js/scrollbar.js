@@ -38,6 +38,7 @@ $.fn.scrollFaker = function() {
 	//绑定事件
 	function bindEvents() {
 		$container.mousewheel(function(e) {
+			e.preventDefault();
 			getSliderState();
 			move(e.deltaY);
 		});
@@ -69,15 +70,15 @@ $.fn.scrollFaker = function() {
 				x: e.pageX,
 				y: e.pageY
 			};
-			var disY = data.mouseEnd.y - data.mouseBegin.y;
 
+			var disY = data.mouseEnd.y - data.mouseBegin.y;
 			move(disY);
 		}
 
 		function getSliderState() {
 			data.scrollBegin = {
-				x: $scrollSlider.offset().left,
-				y: $scrollSlider.offset().top
+				x: $scrollSlider.position().left,
+				y: $scrollSlider.position().top
 			};
 			data.threshold = {
 				back: -data.scrollBegin.y,
@@ -95,8 +96,8 @@ $.fn.scrollFaker = function() {
 
 		var goPos = data.scrollBegin.y + sliderDis;
 
-		$scrollSlider.css({'marginTop': goPos});
-		$content.css({'marginTop': -goPos * model.scale});
+		$scrollSlider.css({'top': goPos});
+		$content.css({'top': -goPos * model.scale});
 	}
 
 	init();
