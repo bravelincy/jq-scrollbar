@@ -40,7 +40,7 @@ $.fn.scrollFaker = function() {
 		$container.mousewheel(function(e) {
 			e.preventDefault();
 			getSliderState();
-			move(e.deltaY);
+			move(-e.deltaY * 20);
 		});
 
 		$container.mousedown(function() {
@@ -57,10 +57,12 @@ $.fn.scrollFaker = function() {
 			};
 			getSliderState();
 
+			$scrollGutter.addClass('scroll-gutter-active');
 			$(document).on('mousemove', mouseMove);
 		});
 
 		$(document).mouseup(function() {
+			$scrollGutter.removeClass('scroll-gutter-active');
 			$(document).off('mousemove', mouseMove);
 			data.isDown = false;
 		});
