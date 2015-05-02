@@ -38,9 +38,12 @@ $.fn.scrollFaker = function() {
 	//绑定事件
 	function bindEvents() {
 		$container.mousewheel(function(e) {
+			var isMac = /mac\sos\sx/.test(navigator.userAgent.toLowerCase());
+			var disY = isMac ? -e.deltaY : -e.deltaY * 20;
+
 			e.preventDefault();
 			getSliderState();
-			move(-e.deltaY * 20);
+			move(disY);
 		});
 
 		$container.mousedown(function() {
